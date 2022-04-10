@@ -9,5 +9,6 @@ position = Vector2( 41, 114 )
 script = ExtResource( 1 )
 
 [node name="Polygon2D" type="Polygon2D" parent="KinematicBody2D"]
-position = Vector2( -4, -2 )
-polygon = PoolVector2Array( 204, -37, 198, 60, 93, 60, 92, -37 )
+position = Vector2( 19.9923, 75 )
+scale = Vector2( 1.23533, 1.01031 )
+polygon = PoolVector2Array( 204, -37, 233.951, -32.6633, 237.999, -1.9796, 191.857, 4.94897, 204, 60.9898, 170.001, 32.6633, 93, 60, 119.003, 24.7449, 92, -37, 143.549, -78.1939, 118.193, -12.8674, 161.906, 8.90816, 199.143, -63.3469 )
