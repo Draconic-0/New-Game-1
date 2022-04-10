@@ -3,3 +3,5 @@
 [node name="MainScene" type="Node2D"]
 
 [node name="Polygon2D" type="Polygon2D" parent="."]
+position = Vector2( 120, 273 )
+polygon = PoolVector2Array( -1, -6, 150, 171, 300, 84, 92, -37 )
