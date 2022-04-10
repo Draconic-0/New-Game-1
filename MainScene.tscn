@@ -1,7 +1,29 @@
-[gd_scene format=2]
+[gd_scene load_steps=2 format=2]
+
+[sub_resource type="PhysicsMaterial" id=1]
+friction = 0.8
+bounce = 0.5
 
 [node name="MainScene" type="Node2D"]
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
-position = Vector2( 120, 273 )
-polygon = PoolVector2Array( -1, -6, 150, 171, 300, 84, 92, -37 )
+[node name="RigidBody2D" type="RigidBody2D" parent="."]
+position = Vector2( 314, 121 )
+scale = Vector2( 1, 1 )
+continuous_cd = 1
+
+[node name="Polygon2D" type="Polygon2D" parent="RigidBody2D"]
+scale = Vector2( 1, 1 )
+polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="RigidBody2D"]
+polygon = PoolVector2Array( 0, 0, 100, 0, 100, 100, 0, 100 )
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2( 152, 334 )
+physics_material_override = SubResource( 1 )
+
+[node name="Polygon2D" type="Polygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 500, 50, 0, 50 )
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="StaticBody2D"]
+polygon = PoolVector2Array( 0, 0, 500, 0, 500, 50, 0, 50 )
