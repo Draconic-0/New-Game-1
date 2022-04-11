@@ -103,7 +103,7 @@ remotesync func add_message(msg):
 func write_audio_chunk(data):
 	rpc_unreliable("_send_audio_chunk", data)
 
-remotesync func _send_audio_chunk(data):
+remote func _send_audio_chunk(data):
 	playback.push_buffer(data)
 	
 
