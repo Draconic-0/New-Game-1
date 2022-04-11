@@ -63,7 +63,10 @@ remotesync func add_message(msg):
 	chat.text += msg+"\n"
 
 
-remote func write_audio_chunk(data):
+func write_audio_chunk(data):
+	rpc("_send_audio_chunk", data)
+
+remote func _send_audio_chunk(data):
 	audio_playback.push_buffer(data)
 	
 
