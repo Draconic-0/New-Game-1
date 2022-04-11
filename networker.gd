@@ -18,10 +18,10 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 
 
-func _player_connected():
+func _player_connected(id):
 	print("player connected")
 
-func _player_disconnected():
+func _player_disconnected(id):
 	print("player disconnected")
 
 func _connected_ok():
