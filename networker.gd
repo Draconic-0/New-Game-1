@@ -19,7 +19,8 @@ func host_server():
 	if not is_hosting:
 		is_hosting = true
 		peer = NetworkedMultiplayerENet.new()
-		peer.create_server(33333, 100)
+		peer.create_server(33333, 5)
+		get_tree().network_peer = peer
 
 
 func connect_to_server(server_ip):
@@ -31,6 +32,7 @@ func connect_to_server(server_ip):
 		is_client = true
 		peer = NetworkedMultiplayerENet.new()
 		peer.create_client(server_ip, SERVER_PORT)
+		get_tree().network_peer = peer
 
 remotesync func add_message(msg):
 	chat.text += msg+"\n"
