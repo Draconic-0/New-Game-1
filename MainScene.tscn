@@ -1,39 +1,70 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://networker.gd" type="Script" id=1]
 [ext_resource path="res://host_server_button.gd" type="Script" id=2]
-[ext_resource path="res://send_button.gd" type="Script" id=3]
+[ext_resource path="res://audio_device_list.gd" type="Script" id=3]
 [ext_resource path="res://connect_server_button.gd" type="Script" id=4]
+[ext_resource path="res://play_anthem_button.gd" type="Script" id=5]
+[ext_resource path="res://recorder.gd" type="Script" id=6]
+[ext_resource path="res://audioplayer.gd" type="Script" id=7]
 
 [node name="MainScene" type="Node2D"]
 
 [node name="networker" type="Node" parent="."]
 script = ExtResource( 1 )
 
-[node name="chat_panel" type="Panel" parent="."]
-margin_right = 850.0
-margin_bottom = 500.0
+[node name="recorder" type="Node" parent="."]
+script = ExtResource( 6 )
 
-[node name="msg_entry" type="LineEdit" parent="chat_panel"]
+[node name="audioplayer" type="AudioStreamPlayer" parent="."]
+script = ExtResource( 7 )
+
+[node name="voicechat_panel" type="Panel" parent="."]
+margin_right = 600.0
+margin_bottom = 300.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="select_device_label" type="Label" parent="voicechat_panel"]
+margin_left = 32.0
+margin_top = 30.0
+margin_right = 72.0
+margin_bottom = 44.0
+text = "Audioausgabegerät auswählen:"
+
+[node name="audio_device_list" type="ItemList" parent="voicechat_panel"]
 margin_left = 28.0
-margin_top = 439.0
-margin_right = 728.0
-margin_bottom = 463.0
-placeholder_text = "type something silly..."
-
-[node name="send_button" type="Button" parent="chat_panel"]
-margin_left = 765.0
-margin_top = 440.0
-margin_right = 805.0
-margin_bottom = 460.0
-text = "GO!"
+margin_top = 55.0
+margin_right = 228.0
+margin_bottom = 255.0
 script = ExtResource( 3 )
 
-[node name="chat" type="RichTextLabel" parent="chat_panel"]
-margin_left = 33.0
-margin_top = 26.0
-margin_right = 733.0
-margin_bottom = 426.0
+[node name="play_anthem_button" type="Button" parent="voicechat_panel"]
+margin_right = 12.0
+margin_bottom = 20.0
+text = "Fun yay!"
+script = ExtResource( 5 )
+
+[node name="increase_vol_button" type="Button" parent="voicechat_panel"]
+margin_left = 30.0
+margin_top = 262.0
+margin_right = 70.0
+margin_bottom = 282.0
+text = "Vol+"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="decrease_vol_button" type="Button" parent="voicechat_panel"]
+margin_left = 81.0
+margin_top = 263.0
+margin_right = 118.0
+margin_bottom = 283.0
+text = "Vol-"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="network_panel" type="Panel" parent="."]
 margin_left = 873.0
@@ -75,3 +106,7 @@ margin_top = 189.0
 margin_right = 52.0
 margin_bottom = 203.0
 text = "IP:"
+
+[connection signal="item_selected" from="voicechat_panel/audio_device_list" to="voicechat_panel/audio_device_list" method="_on_audio_device_list_item_selected"]
+[connection signal="pressed" from="voicechat_panel/increase_vol_button" to="audioplayer" method="_on_increase_vol_button_pressed"]
+[connection signal="pressed" from="voicechat_panel/decrease_vol_button" to="audioplayer" method="_on_decrease_vol_button_pressed"]

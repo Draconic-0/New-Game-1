@@ -1,0 +1,15 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+path="res://.import/hymne.mp3-6707b93907d10b395c6e102902956a56.mp3str"
+
+[deps]
+
+source_file="res://audio/hymne.mp3"
+dest_files=[ "res://.import/hymne.mp3-6707b93907d10b395c6e102902956a56.mp3str" ]
+
+[params]
+
+loop=false
+loop_offset=0

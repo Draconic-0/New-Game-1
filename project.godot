@@ -42,6 +42,10 @@ config/name="New Game 1"
 run/main_scene="res://MainScene.tscn"
 config/icon="res://icon.png"
 
+[audio]
+
+enable_audio_input=true
+
 [autoload]
 
 PluginSettings="*res://addons/github-integration/scripts/PluginSettings.gd"
