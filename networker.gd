@@ -23,7 +23,7 @@ func _ready():
 	if audioplayer == null:
 		audioplayer = get_node("/root/MainScene/audioplayer")
 		#audioplayer.stream = AudioStreamGenerator.new()
-		audioplayer.stream.mix_rate  = 44100
+		audioplayer.stream.mix_rate  = 11025
 		playback = audioplayer.get_stream_playback()
 		audioplayer.play()
 	
@@ -103,7 +103,7 @@ remotesync func add_message(msg):
 func write_audio_chunk(data):
 	rpc_unreliable("_send_audio_chunk", data)
 
-remote func _send_audio_chunk(data):
+remotesync func _send_audio_chunk(data):
 	playback.push_buffer(data)
 	
 

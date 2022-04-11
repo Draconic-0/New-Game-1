@@ -34,6 +34,11 @@ func _process(delta):
 	if muted == false:
 		var frames = audio_capture.get_frames_available()
 		var buffer = audio_capture.get_buffer(frames)
-		networker.write_audio_chunk(buffer)
+		var new_buffer = []
+		
+		for i in range(len(buffer)):
+			if i % 4 == 0:
+				new_buffer.append(buffer[i])
+		networker.write_audio_chunk(new_buffer)
 		
 		
