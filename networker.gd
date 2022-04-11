@@ -39,7 +39,8 @@ func _server_disconnected():
 
 func host_server():
 	is_client = false
-	get_tree().network_peer.close_connection()
+	if get_tree().network_peer != null:
+		get_tree().network_peer.close_connection()
 		
 	if not is_hosting:
 		is_hosting = true
@@ -52,7 +53,8 @@ func host_server():
 func connect_to_server(server_ip):
 	is_hosting = false
 	
-	get_tree().network_peer.close_connection()
+	if get_tree().network_peer != null:
+		get_tree().network_peer.close_connection()
 	
 	is_client = true
 	var peer = NetworkedMultiplayerENet.new()
@@ -64,7 +66,7 @@ remotesync func add_message(msg):
 
 
 func write_audio_chunk(data):
-	rpc("_send_audio_chunk", data)
+	rpc_unreliable("_send_audio_chunk", data)
 
 remote func _send_audio_chunk(data):
 	audio_playback.push_buffer(data)
