@@ -8,4 +8,3 @@ func _ready():
 func _pressed():
 	print("host server!")
 	networker.host_server()
-	networker.write_message("lol")
