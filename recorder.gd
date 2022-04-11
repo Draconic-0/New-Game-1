@@ -4,6 +4,8 @@ var audio_capture = null
 var muted = false
 var networker
 
+var c = 0
+
 
 func _ready():
 	networker = get_node("/root/MainScene/networker")
@@ -21,23 +23,17 @@ func _ready():
 	
 	var mic := AudioStreamPlayer.new()
 	mic.stream = AudioStreamMicrophone.new()
+	#mic.stream.mix_rate = 22050.0
 	mic.bus = AudioServer.get_bus_name(idx)
 	add_child(mic)
 	mic.play()
 
-
-func mute():
-	muted = true
-
-func unmute():
-	muted = false
 
 
 func _process(delta):
 	if muted == false:
 		var frames = audio_capture.get_frames_available()
 		var buffer = audio_capture.get_buffer(frames)
-		if len(buffer) > 0:
-			print(buffer[0])
 		networker.write_audio_chunk(buffer)
-		#networker.audio_playback.push_buffer(buffer)
+		
+		

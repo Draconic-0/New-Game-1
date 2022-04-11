@@ -7,7 +7,9 @@ var is_client = false
 
 var chat = null
 
-var audio_playback
+var playback = null
+var audioplayer = null
+var audiobuffer = []
 
 func _ready():
 	get_tree().connect("network_peer_connected", self, "_player_connected")
@@ -17,10 +19,14 @@ func _ready():
 	get_tree().connect("server_disconnected", self, "_server_disconnected")
 	
 	#setup audioplayer
-	var audioplayer = get_node("/root/MainScene/audioplayer")
-	audioplayer.stream = AudioStreamGenerator.new()
-	audio_playback = audioplayer.get_stream_playback()
-	audioplayer.play()
+	
+	if audioplayer == null:
+		audioplayer = get_node("/root/MainScene/audioplayer")
+		#audioplayer.stream = AudioStreamGenerator.new()
+		audioplayer.stream.mix_rate  = 44100
+		playback = audioplayer.get_stream_playback()
+		audioplayer.play()
+	
 
 
 func _player_connected(id):
@@ -35,6 +41,35 @@ func _connected_ok():
 func _server_disconnected():
 	print("server disconnected")
 
+func _fill_buffer():
+	var buffer = []
+	
+	var increment = 440 / 22050
+	
+	var phase = 0
+	var to_fill = playback.get_frames_available()
+	while to_fill > 0:
+		var new_frame = Vector2.ONE * sin(phase * TAU)
+		buffer.append(new_frame)
+		#playback.push_frame(new_frame) # Audio frames are stereo.
+		phase = fmod(phase + increment, 1.0)
+		to_fill -= 1
+	return buffer
+
+func _process(_delta):
+	playback = audioplayer.get_stream_playback()
+	
+#	if playback.get_frames_available() < 1:
+#		return
+#
+#	for i in range(min(playback.get_frames_available(), audiobuffer.size())):
+#		playback.push_frame(audiobuffer[0])
+#		audiobuffer.remove(0)
+#
+#	if playback.get_frames_available() > 0:
+#		var buffer = PoolVector2Array()
+#		buffer.resize(playback.get_frames_available())
+#		playback.push_buffer(buffer)
 
 
 func host_server():
@@ -69,7 +104,7 @@ func write_audio_chunk(data):
 	rpc_unreliable("_send_audio_chunk", data)
 
 remote func _send_audio_chunk(data):
-	audio_playback.push_buffer(data)
+	playback.push_buffer(data)
 	
 
 func write_message(msg):
